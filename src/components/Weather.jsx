@@ -18,12 +18,19 @@ const Weather = () => {
   //Use option+shift+8 for degree symbol
   function handleClick(e) {
     e.preventDefault();
+    getWeatherData();
   }
   return (
     <div>
       <h1>Today Temp: {data.temp} °F</h1>
+      <p>{city}</p>
       <form>
-        <input type="text" placeholder="Enter City" />
+        <input
+          type="text"
+          name={city}
+          placeholder="Enter City"
+          onChange={(e) => setCity(e.target.value)}
+        />
         <button onClick={handleClick}>Get Weather</button>
       </form>
     </div>
