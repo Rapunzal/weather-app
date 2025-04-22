@@ -5,6 +5,8 @@ const API_KEY = "f71625fdd5188655fa6d43214c2d6af3";
 const Weather = () => {
   const [city, setCity] = useState("Denver");
   const [data, setData] = useState({});
+  const [wind, setWind] = useState("");
+  const [loading, setLoading] = useState(false);
   useEffect(() => {
     getWeatherData();
   }, []);
@@ -15,6 +17,9 @@ const Weather = () => {
       );
       console.log(response.data);
       setData(response.data.main);
+      setWind(response.data.wind.speed);
+      setLoading(true);
+      console.log(data, "data");
     } catch (err) {
       console.log(err, " error");
       setCity("Not Found");
@@ -25,34 +30,38 @@ const Weather = () => {
     e.preventDefault();
     getWeatherData();
   }
+
   return (
-    <div className="container">
-      <div className="temp-container">
-        <div
-          style={{
-            marginLeft: "20px",
-            marginTop: "50px",
-            marginBottom: "80px",
-          }}
-        >
-          <form>
-            <input
-              type="text"
-              name={city}
-              placeholder="Enter City"
-              onChange={(e) => setCity(e.target.value)}
-            />
-            <button className="btn" onClick={handleClick}>
-              Get Weather
-            </button>
-          </form>
-          <h1 style={{ textAlign: "center", marginTop: "50px" }}>
-            Today Temp: {data.temp} °F
-          </h1>
-          <h1 style={{ textAlign: "center", marginTop: "20px" }}>{city}</h1>
+    loading && (
+      <div className="container">
+        <div className="temp-container">
+          <div
+            style={{
+              marginLeft: "20px",
+              marginTop: "50px",
+              marginBottom: "80px",
+            }}
+          >
+            <form>
+              <input
+                type="text"
+                name={city}
+                placeholder="Enter City"
+                onChange={(e) => setCity(e.target.value)}
+              />
+              <button className="btn" onClick={handleClick}>
+                Get Weather
+              </button>
+            </form>
+            <h1 style={{ textAlign: "center", marginTop: "50px" }}>
+              Today Temp: {data.temp} °F
+            </h1>
+            <h1 style={{ textAlign: "center", marginTop: "20px" }}>{city}</h1>
+            <div>Wind: {wind} km/hr</div>
+          </div>
         </div>
       </div>
-    </div>
+    )
   );
 };
 
