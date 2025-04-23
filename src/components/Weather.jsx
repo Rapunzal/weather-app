@@ -57,7 +57,17 @@ const Weather = () => {
               Today Temp: {data.temp} °F
             </h1>
             <h1 style={{ textAlign: "center", marginTop: "20px" }}>{city}</h1>
-            <div>Wind: {wind} km/hr</div>
+            <div className="box1">
+              <p>
+                <span style={{ fontWeight: "bold" }}>Wind:</span> {wind} km/hr
+              </p>
+              <p style={{ marginRight: "15px" }}>
+                {" "}
+                <span style={{ fontWeight: "bold" }}>
+                  Humidity: {data.humidity}
+                </span>{" "}
+              </p>
+            </div>
           </div>
         </div>
       </div>
